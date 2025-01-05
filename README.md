@@ -1,4 +1,4 @@
-# Báo cáo Kết quả hoạt động kinh doanh của Adventureworks
+![image](https://github.com/user-attachments/assets/4790c9d6-fbfd-45e5-878c-d443ec89ecde)# Báo cáo Kết quả hoạt động kinh doanh của Adventureworks
 Báo cáo phân tích tình hình kinh doanh của AdventureWorks từ 2011-2013, dựa trên dữ liệu truy vấn bằng SQL và trực quan hóa bằng Power BI. Báo cáo cung cấp insight về doanh thu, lợi nhuận theo sản phẩm, thị trường, khách hàng và đưa ra đề xuất nhằm tối ưu hóa chiến lược kinh doanh, tăng trưởng lợi nhuận.
 
 ## Đối tượng nghiên cứu 👥 👥 👥
@@ -12,17 +12,35 @@ Mục tiêu chính là sử dụng những kỹ thuật phân tích dữ liệu 
 
 ## Mô tả dữ liệu 📝
 Bởi vì đây là báo cáo tình hình kinh doanh nên sử dụng các bảng liên quan như sau:
-● Fact Reseller Sales
-● Fact Internet Sales
-● Dim Date
-● Dim GeoGraphy
-● DimProduct
-● Dim ProductCategory
-● Dim Product SubCategory
-● Dim Customer
-● Dim Sales Territory
-● Dim Reseller
+ ● Fact Reseller Sales
+ ● Fact Internet Sales
+ ● Dim Date
+ ● Dim GeoGraphy
+ ● DimProduct
+ ● Dim ProductCategory
+ ● Dim Product SubCategory
+ ● Dim Customer
+ ● Dim Sales Territory
+ ● Dim Reseller
+ 
 Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thông qua Microsoft SQL Server như Legend, Profitable_Category và Geography để phục vụ cho việc phân tích. Ngoài ra còn các bảng phục vụ cho việc dự đoán như Bikessales_RSL và Final. Mặc dù có thể xử lý trên Python nhưng việc này xử lý trên Microsoft SQL Server dễ dàng hơn.
+ ## Cấu trúc nội dung bài báo cáo 
+ 1. Overview
+ 2. Sales Product Analytics
+ 3. Sales Market Analytics
+ 4. Sales Customer Analytics
+ 5. Recommendations
 
+## 1. Overview
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5b08dc42-c189-40ab-9ee3-fc59c01c4188" width="300px">
+</p>
+
+### 1.1 Biến động tổng doanh thu từ 1/1/2011 - 31/12/2013
+<p align="center">
+  <img src="![image](https://github.com/user-attachments/assets/c76b77c0-dede-429d-91a5-0415daea8c26)
+" width="300px">
+</p>
 
 
