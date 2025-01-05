@@ -36,6 +36,10 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5b08dc42-c189-40ab-9ee3-fc59c01c4188" width="300px">
 </p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ca9d1e24-54c9-46d9-8738-34a55730fad0" width="300px">
+</p>
+ 
 
 ### 1.1 Biến động tổng doanh thu từ 1/1/2011 - 31/12/2013
 <p align="center">
@@ -104,10 +108,14 @@ Tuy là kênh mang đến phần lớn doanh thu cho cửa hàng những về m�
 - Nguyên nhân của sự tăng trưởng về biên lợi nhuận ròng ở năm 2013 này là trong 2 năm 2011 - 2012 thì chỉ bán một Category là Bikes và đến 2013 thì mới có thêm Accessories và Clothing ở Hình 1.13. Tuy năm 2013 Bikes cũng tăng trưởng về mặt doanh thu, nhiều hơn so với 2 năm trước nhưng ta có thể thấy được rằng hai Category là Accessories và Clothing mới là nguyên nhân chính làm biên lợi nhuận ròng của doanh nghiệp tăng. Điều đặc biệt ở đây là doanh thu của 2 Category này rất nhỏ so với Bikes nhưng tiềm năng sinh lợi của nó lại rất lớn, lớn hơn Bikes rất nhiều. Doanh nghiệp nên tập trung phát triển nhiều hơn vào những Category này để có được mức sinh lời nhiều hơn.
 
 ## 2.Products Analytics
-### 1.1 Tổng quan về Products
+### 2.1 Tổng quan về Products
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1b3ffecf-6852-4679-9559-62cabb721397" width="300px">
+</p>
+ 
 Adventureworks kinh doanh các mặt hàng về xe đạp, phụ kiện và quần áo xe đạp. Cụ thể từ 2011-2013, doanh nghiệp có 4 Category là: Bikes - sản phẩm chủ lực, Clothing, Accessories và Component với 37 Subcategory, 606 sản phẩm thuộc 4 dòng.
 
-### 1.2 Tỷ trọng doanh thu và lợi nhuận theo Category
+### 2.2 Tỷ trọng doanh thu và lợi nhuận theo Category
 <p align="center">
   <img src="https://github.com/user-attachments/assets/decc344d-0450-469f-8378-ff6a7e955afb" width="300px">
 </p>
@@ -116,7 +124,7 @@ Adventureworks kinh doanh các mặt hàng về xe đạp, phụ kiện và qu�
 </p>
 Nhìn chung thì Bikes là sản phẩm mang lại doanh thu chính cũng như lợi nhuận cho doanh nghiệp, chiếm 86,2% doanh thu và 84,18% lợi nhuận. Tiếp đến là Components, đây tuy là sản phẩm chỉ được bày bán tại Reseller nhưng có đóng góp khá đáng kể so với Clothing và Accessories. Nguyên nhân bởi vì Bikes là sản phẩm chính của Adventureworks cũng như giá bán trung bình của mỗi sản phẩm ở Category Bikes là 853 USD, cao hơn hẳn so với Components là 179 USD, Clothing là 27 USD và Accessories là 23 USD như hình 2.2
 
-### 1.3 Tình hình kinh doanh theo Category ở kênh Internet
+### 2.3 Tình hình kinh doanh theo Category ở kênh Internet
 <p align="center">
   <img src="https://github.com/user-attachments/assets/bf73de9e-c005-4d3c-896f-85848e4a7623" width="300px">
 </p>
@@ -127,7 +135,7 @@ Nhìn chung thì Bikes là sản phẩm mang lại doanh thu chính cũng như l
  
 Ở kênh Internet, Accessories tuy bán chạy nhất với 36 nghìn lượt bán nhưng doanh thu và lợi nhuận của Category này không đáng kể, chỉ chiếm tầm 2,39% doanh thu và 3,63% lợi nhuận. Doanh thu và lợi nhuận chính của kênh Internet vẫn đến từ Bikes là chính, tuy số lượng bán không nhiều bằng Accessories 15 nghìn lượt bán.
 
-### 1.4 Tình hình kinh doanh theo Category ở kênh Reseller
+### 2.4 Tình hình kinh doanh theo Category ở kênh Reseller
 <p align="center">
   <img src="https://github.com/user-attachments/assets/1a3a5f02-b699-4214-ad16-152373dc8bae" width="300px">
 </p>
@@ -139,7 +147,7 @@ Nhìn chung thì Bikes là sản phẩm mang lại doanh thu chính cũng như l
 Đối với kênh Internet thì doanh thu của Bikes vẫn chiếm phần lớn - 82,49% và có thêm sản phẩm về Components - cũng có doanh thu khá cao là 14,58%. Tuy Bikes mang lại doanh thu cao như thế nhưng về mặt lợi nhuận thì lại bị thua lỗ ở Reseller - âm 0,5 triệu USD trong vòng 3 năm như hình 2.5 trong khi Bikes ở kênh Internet vẫn đang lời với mức lợi nhuận chiếm đến 95,24% như Hình 2.4.
 Nguyên nhân của tình trạng này có lẽ đến từ vấn đề chi phí dành cho Bikes ở kênh Reseller. Tất cả 4 Category thì Tổng chi phí ở Reseller đều cao hơn Internet. Những chi phí khác (chưa bao gồm chi phí sản xuất) của Bikes rất cao, hơnrất nhiều lần so với các Category còn lại.Trong 3 loại chi phí thì Thuế chiếm nhiều nhất - chiếm 70% so với tổng chi phí ở kênh Reseller, bên cạnh đó phí vận chuyển cũng khá đáng kể nhưng nhìn chung thì trung bình mỗi một sản phẩm của Bikes bán ra phải chi trả nhiều chi phí hơn so (không tính chi phí sản xuất) với sản phẩm của các Category còn lại. Những nguyên nhân trên cũng lý giải được vì sao doanh thu của Bikes rất lớn nhưng lợi nhuận lại đang bị âm ở kênh Reseller.
 
-### 1.5 Số lượng đơn đặt hàng ở 2 kênh
+### 2.5 Số lượng đơn đặt hàng ở 2 kênh
 <p align="center">
   <img src="https://github.com/user-attachments/assets/db8b94cf-b4b0-46a1-a0b2-ebee62fbf84e" width="300px">
 </p>
@@ -153,6 +161,30 @@ Nguyên nhân của tình trạng này có lẽ đến từ vấn đề chi phí
 Ở Hình 2.6 ta có thể thấy giá ở 2 kênh bán hàng của các Category, ở kênh Internet thì chỉ có giá bán của Accessories là thấp hơn so với kênh Reseller - 19,4 USD so với 21.67 USD. Tất cả các mặt hàng còn lại đều có giá cao hơn ở kênh Internet, đặc biệt là Bikes với mức chênh lệch lên đến 1 nghìn USD. Điều này có thể lý giải vì sao Accessories lại là Category được bán chạy nhất ở kênh Internet trong khi Bikes mới chính là sản phẩm chính của doanh nghiệp, cũng như việc Clothing và Bikes được mua với số lượng nhiều hơn ở Reseller.
 
 Đối với Clothing thì khách hàng sẽ có xu hướng muốn đến lựa chọn trực tiếp tại cửa hàng để tránh tình trạng không mua nhầm size sản phẩm không phù hợp với bản thân. Đây cũng có thể là một nguyên nhân dẫn đến Clothing được mua tại cửa hàng trực tiếp nhiều hơn bên cạnh nguyên nhân là giá ở cửa hàng sẽ thấp hơn.
+### 2.6 Sự tăng trưởng doanh thu của các dòng xe đạp từ 2011-2013
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1db6c1c8-6379-45c1-b52c-7d31e5fcd6c0" width="300px">
+</p>
+ 
+Nhìn chung ở cả 2 kênh thì doanh thu của xe đạp có sự tăng trưởng, năm 2013 có thêm dòng sản phẩm mới là Touring Bikes - xe đạp đi du lịch đường dài. Có thể doanh nghiệp đã nhận thấy xu hướng của thị trường đối với dòng xe đạp du lịch này nên chỉ mới năm đầu tiên ra mắt, dòng xe đạp này đã mang lại doanh thu rất lớn cho doanh nghiệp - 15,7 triệu USD. Tuy mới ra mắt được 1 năm nhưng dòng xe này đem lại doanh thu khá lớn, đặc biệt ở kênh Reseller với 12 triệu USD trong năm 2013. Có vẻ đây là một dòng xe có tiềm năng phát triển, được thị trường ưa chuộng khá nhiều. Doanh nghiệp nên tập trung phát triển và mở rộng nhiều sản phẩm của dòng Touring Bikes này để đem lại doanh số cao.
 
+Đối với kênh Reseller thì doanh thu lại tăng trưởng mạnh vào năm 2012, đặc biệt là Road Bikes, trái ngược với kênh Internet. Road Bikes phát triển mạnh mẽ, mang về lên đến 16 triệu USD doanh thu cho Adventureworks vào băm này. Doanh thu của xe đạp leo núi có xu hướng giảm vào năm 2013, doanh nghiệp nên có những chính sách kích thích nhu cầu mua dòng xe đạp này vào năm 2014 để doanh thu có sự tăng trưởng hơn.
 
+## 3. Sales Market Analytics
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/75497fa5-2333-4b17-aeae-e34af1752dc9" width="300px">
+</p>
 
+## 4.Sales Customer Analytics 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/785e198a-e015-4478-8d41-752b8b577035" width="300px">
+</p>
+
+ ## 5. Recommendations
+ ### 5.1. Về sản phẩm
+Accessories là Nhóm sản phẩm có tiềm năng sinh lời tốt nhất. Chính vì thế, doanh nghiệp nên nâng cao chất lượng và đa dạng hóa dòng sản phẩm Accessories của bạn để đáp ứng nhu cầu của các khách hàng trên toàn cầu. Tạo ra các sản phẩm độc đáo và hấp dẫn để thu hút sự chú ý của người tiêu dùng. Bên cạnh đó nên xây dựng hệ thống phân phối toàn cầu, hợp tác với các đối tác phân phối và nhà bán lẻ trên khắp thế giới để mở rộng mạng lưới phân phối và đưa sản phẩm của bạn đến tay người tiêu dùng trên các thị trường quốc tế.
+## 5.2. Về thị trường
+Có tiềm năng lớn cho doanh số bán hàng ở Australia. Để phát triển thị trường này, cần triển khai các chiến lược tiếp thị hiệu quả và sáng tạo. Đặc biệt, cần tập trung vào việc mở rộng đa dạng sản phẩm và áp dụng các ý tưởng mới vào lĩnh vực quần áo, phụ kiện, và xe đạp. Điều này là cần thiết vì khu vực này hiện đang gặp thách thức với giá trị đặt hàng và doanh số trung bình thấp nhất.
+Theo Nghiên cứu, Netherlands có 27% tổng số chuyến đi và 25% số chuyến đi làm được thực hiện bằng xe đạp. Nó có 400 km làn đường dành cho xe đạp và gần 40% việc đi lại ở Amsterdam được thực hiện bằng xe đạp. Điều kỳ lạ là hầu hết người đi xe đạp đều không đội mũ bảo hiểm. Và trộm cắp xe đạp là một vấn đề lớn, với khoảng một trong năm (20%) chiếc xe đạp bị đánh cắp mỗi năm. Hiện này, AdventureWorks đã hoạt động tốt trên thị trường Châu Âu, nên thực hiện các bước cần thiết để tiếp cận sang thị trường Netherlands nhằm cải thiện đáng kể doanh thu và lợi nhuận.
+### 5. 4. Về khách hàng
+Nên trao các ưu đãi và phần thưởng cho những khách hàng có hiệu suất cao nhất để khuyến khích bán hàng nhiều hơn. Họ cũng có thể tiến hành các buổi nâng cao năng lực để tư vấn cho những khách hàng có hiệu suất thấp về các chiến lược hiệu quả nhằm cải thiện doanh số bán hàng.
