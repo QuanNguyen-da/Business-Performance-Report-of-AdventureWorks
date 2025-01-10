@@ -17,16 +17,16 @@ Mục tiêu chính là sử dụng những kỹ thuật phân tích dữ liệu 
 
 ## Mô tả dữ liệu 📝
 Bởi vì đây là báo cáo tình hình kinh doanh nên sử dụng các bảng liên quan như sau:
- ● Fact Reseller Sales
- ● Fact Internet Sales
- ● Dim Date
- ● Dim GeoGraphy
- ● DimProduct
- ● Dim ProductCategory
- ● Dim Product SubCategory
- ● Dim Customer
- ● Dim Sales Territory
- ● Dim Reseller
+   1. Fact Reseller Sales
+   2. Fact Internet Sales
+   3. Dim Date
+   4. Dim GeoGraphy
+   5. DimProduct
+   6. Dim ProductCategory
+   7. Dim Product SubCategory
+   8. Dim Customer
+   9. Dim Sales Territory
+   10. Dim Reseller
  
 Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thông qua Microsoft SQL Server như Legend, Profitable_Category và Geography để phục vụ cho việc phân tích. Ngoài ra còn các bảng phục vụ cho việc dự đoán như Bikessales_RSL và Final. Mặc dù có thể xử lý trên Python nhưng việc này xử lý trên Microsoft SQL Server dễ dàng hơn.
 
@@ -34,10 +34,9 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
 - Mục tiêu chính là **Báo cáo Hiệu quả Kinh doanh**, vì vậy chúng ta chỉ cần một số bảng liên quan, không cần tất cả. Các bảng cần thiết đã được trình bày ở trên. Chúng ta sẽ loại bỏ các bảng khác.  
 - Sau đó, bạn sẽ có các bảng sau đây: 
     <p align="center">
-   <img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/78e687d4-e08a-448b-a4f5-8223bdc6362b/image.png" alt="image" width="450">
+   <img src="https://github.com/user-attachments/assets/cd0165b8-2868-4e94-9910-d2c0e75ea566" alt="image" width="450">
   </p>
   
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/78e687d4-e08a-448b-a4f5-8223bdc6362b/image.png)
     
 - Make sure the data is successfully imported by viewing the data in the tables.
     
