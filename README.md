@@ -1,14 +1,19 @@
 # Báo cáo Kết quả hoạt động kinh doanh của Adventureworks
-Báo cáo phân tích tình hình kinh doanh của AdventureWorks từ 2011-2013, dựa trên dữ liệu truy vấn bằng SQL và trực quan hóa bằng Power BI. Báo cáo cung cấp insight về doanh thu, lợi nhuận theo sản phẩm, thị trường, khách hàng và đưa ra đề xuất nhằm tối ưu hóa chiến lược kinh doanh, tăng trưởng lợi nhuận.
+Đối với bất kỳ doanh nghiệp nào, dữ liệu luôn mang lại giá trị to lớn. Hãy cùng phân tích bộ dữ liệu mẫu **AdventureWorks** của Microsoft để khám phá những thông tin quan trọng hỗ trợ cho các nhà ra quyết định. Sử dụng các kỹ thuật cần thiết như **Microsoft SQL Server** để truy vấn và làm sạch dữ liệu, và **Power BI** và **Tableau** để trực quan hóa nhằm hiểu rõ hơn về xu hướng cũng như những thông tin quan trọng.
 
 ## Đối tượng nghiên cứu 👥 👥 👥
 Bài báo cáo sử dụng Bộ dữ liệu AdventureWorks Data Warehouse 2014. AdventureWorksDW2014 là bộ dữ liệu mẫu của Microsoft, đây là một doanh nghiệp sản xuất và kinh doanh đa quốc gia. Sản phẩm chính là Bikes gồm 3 dòng chính là Mountain Bikes, Touring Bikes và Road Bikes, bên cạnh đó cũng kinh doanh các phụ kiện đi kèm là Component, Clothing và Accessories.
 Adventureworks hoạt động trên 6 quốc gia: United States, Australia, United Kingdom, Canada, France và Germany. Có 2 mô hình kinh doanh của Adventureworks là các cửa hàng bán lẻ bán xe đạp và bán hàng trên Internet phục vụ khách hàng cá nhân. Thông thường Adventureworks bán với số lượng lớn cho các cửa hàng bán lẻ, hoạt động làm đại lý cho sản phẩm của mình.
 
 ## Đối tượng sử dụng và mục tiêu 🎯 🎯 🎯 
-Bài báo cáo tập trung vào các vấn đề liên quan đến tình hình kinh doanh của AdventureWorks từ 2011 - 2013. Báo cáo này dành cho Giám đốc kinh doanh - người đứng đầu bộ phận kinh doanh của doanh nghiệp, chịu trách nhiệm quản lý, điều hành, chỉ đạo và định hướng các hoạt động kinh doanh nhằm đạt được các mục tiêu doanh số, lợi nhuận và
-phát triển của công ty. Bài báo cáo sẽ trình bày các vấn đề liên quan đến hoạt động kinh doanh.
+Bài báo cáo tập trung vào các vấn đề liên quan đến tình hình kinh doanh của AdventureWorks từ 2011 - 2013. Báo cáo này dành cho Giám đốc kinh doanh - người đứng đầu bộ phận kinh doanh của doanh nghiệp, chịu trách nhiệm quản lý, điều hành, chỉ đạo và định hướng các hoạt động kinh doanh nhằm đạt được các mục tiêu doanh số, lợi nhuận và phát triển của công ty. Bài báo cáo sẽ trình bày các vấn đề liên quan đến hoạt động kinh doanh.
 Mục tiêu chính là sử dụng những kỹ thuật phân tích dữ liệu kinh doanh kết hợp với công cụ trực quan hóa và kỹ thuật data storytelling để hỗ trợ giám đốc kinh doanh trong việc nắm bắt tình hình kinh doanh một cách toàn diện để cung cấp một cái nhìn tổng quan về thị trường và dự đoán xu hướng tương lai.
+
+## Mô tả ngắn gọn về Công ty AdventureWorks
+- **Lĩnh vực kinh doanh**: AdventureWorks chuyên cung cấp xe đạp và các phụ kiện cho khách hàng trên toàn thế giới.  
+- **Kênh bán hàng**:  
+  - Internet     : Khách hàng có thể mua sản phẩm thông qua trang web của công ty.  
+  - Đại lý bán lẻ: Công ty cũng có các cửa hàng bán lẻ tại nhiều khu vực khác nhau để phục vụ khách hàng trực tiếp.
 
 ## Mô tả dữ liệu 📝
 Bởi vì đây là báo cáo tình hình kinh doanh nên sử dụng các bảng liên quan như sau:
@@ -24,6 +29,373 @@ Bởi vì đây là báo cáo tình hình kinh doanh nên sử dụng các bản
  ● Dim Reseller
  
 Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thông qua Microsoft SQL Server như Legend, Profitable_Category và Geography để phục vụ cho việc phân tích. Ngoài ra còn các bảng phục vụ cho việc dự đoán như Bikessales_RSL và Final. Mặc dù có thể xử lý trên Python nhưng việc này xử lý trên Microsoft SQL Server dễ dàng hơn.
+
+## Sử dụng SQL để Chuẩn bị và Làm sạch dữ liệu
+- Mục tiêu chính là **Báo cáo Hiệu quả Kinh doanh**, vì vậy chúng ta chỉ cần một số bảng liên quan, không cần tất cả. Các bảng cần thiết đã được trình bày ở trên. Chúng ta sẽ loại bỏ các bảng khác.  
+- Sau đó, bạn sẽ có các bảng sau đây: 
+    <p align="center">
+   <img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/78e687d4-e08a-448b-a4f5-8223bdc6362b/image.png" alt="image" width="450">
+  </p>
+  
+    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/78e687d4-e08a-448b-a4f5-8223bdc6362b/image.png)
+    
+- Make sure the data is successfully imported by viewing the data in the tables.
+    
+    ```sql
+    select * from DimCustomer
+    select * from Dimdate
+    select * from DimSalesTerritory
+    select * from FactInternetSales
+    select * from FactResellerSales
+    #Do the same for the remaining tables.
+    ```
+    
+- 3. Cleaning Data
+    - Cheking for missing values/null
+        
+        I checked in Excel by using filters and then removing missing values or nulls.
+        
+    - Remove some columns that are not necessary and null
+        
+        ```sql
+        alter table dimcustomer
+        drop column suffix
+        select * from dimcustomer
+        
+        select * from dimdate
+        alter table dimdate
+        drop column spanishmonthname
+        
+        select * from DimGeography
+        alter table dimgeography
+        drop column frenchcountryregionname
+        # Do the same for the remaining tables.
+        ```
+        
+    - Check for duplicate rows in the primary key columns.
+        
+        ```sql
+        select  count(*) - count( distinct customerkey)  
+        as N'Số khóa bị trùng của Dimcustomer' from DimCustomer
+        
+        select  count(*) - count( distinct Productkey)  
+        as N'Số khóa bị trùng của Dimproduct' from DimProduct
+        # Do the same for the remaining tables.
+        ```
+        
+    - There are no duplicate rows.
+        
+        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/f0609795-b401-410e-9564-ecec503d69da/image.png)
+        
+- 4. Feature Engineering
+    - **Age**: Age is essential information for analysis but is not readily available. It is calculated using the `DATEDIFF` function to determine the difference between the customer's year of birth and the current year. This value represents the customer's age.
+        
+        ```sql
+        Alter table dimcustomer
+        add Age int
+        
+        update dimcustomer
+        set age=datediff(year, BirthDate,getdate())
+        
+        ```
+        
+    - **Profit**: This is the net profit for the business after deducting all expenses. This column is calculated by subtracting the Total Product Cost from the Extended Amount.
+        
+        ```sql
+        --Add Column Profit
+        alter table factinternetsales
+        add profit decimal(18,2)
+        
+        alter table factresellersales
+        add profit decimal(18,2)
+        
+        --Caculate Profit
+        update FactInternetSales
+        set Profit=ExtendedAmount - TotalProductCost
+        
+        update factresellersales
+        set Profit=ExtendedAmount - TotalProductCost
+        ```
+        
+    
+    - **Net Profit Margin:** This is the net profit margin, which evaluates the profitability of the business. It is calculated by dividing Profit by Sales Amount.
+        
+        ```sql
+        
+        --Add Column Net Profit Margin
+        alter table FactInternetSales
+        add Net_Profit_Margin decimal(18,2)
+        
+        alter table Factresellersales
+        add Net_Profit_Margin decimal(18,2)
+        
+        --Update value of Net Profit Margin
+        update FactInternetSales
+        set Net_Profit_Margin=profit/SalesAmount
+        
+        update Factresellersales
+        set Net_Profit_Margin=profit/SalesAmount
+        ```
+        
+    
+    - Because the design of the AdventureWorks database contains sales data for the two channels, Internet and Reseller, in two separate tables, in order to explore the overall business metrics of the company, these two tables need to be merged. However, to distinguish between the data from the Internet and Reseller sales channels, an additional column, **Sales_Channel**, is required.
+        
+        ```sql
+        --Add Column SalesChannel
+        alter table factinternetsales
+        add  SalesChannel VARCHAR(50)
+        
+        alter table factresellersales
+        add  SalesChannel VARCHAR(50)
+        
+        --Updating values for SalesChannel
+        update FactInternetSales
+        set SalesChannel ='Internet'
+        
+        update factresellersales
+        set SalesChannel ='Reseller'
+        
+        ```
+        
+        ```sql
+        --"Retrieve the common columns of the two tables."
+        select Column_Name , DATA_TYPE
+        from INFORMATION_SCHEMA.COLUMNS
+        where TABLE_NAME='factInternetsales'
+        intersect
+        select Column_Name,DATA_TYPE
+        from INFORMATION_SCHEMA.COLUMNS
+        where TABLE_NAME='FactResellersales'
+        
+        --Create a new table to merge 
+        create table summary_table
+        (
+            CurrencyKey INT, DiscountAmount FLOAT, DueDate DATETIME, DueDateKey INT, ExtendedAmount MONEY, Freight MONEY, Net_Profit_Margin DECIMAL(18, 2),
+            OrderDate DATETIME, OrderDateKey INT, OrderQuantity SMALLINT,  ProductKey INT,  ProductStandardCost MONEY, profit DECIMAL(18, 2),
+            PromotionKey INT,  RevisionNumber TINYINT,  SalesAmount MONEY, SalesChannel VARCHAR(50),   SalesOrderLineNumber TINYINT,  SalesOrderNumber NVARCHAR(50),
+            SalesTerritoryKey INT,  ShipDate DATETIME, ShipDateKey INT,  TaxAmt MONEY, TotalProductCost MONEY,  UnitPrice MONEY, UnitPriceDiscountPct FLOAT
+        );
+        
+        --Add data from FactInternetsales and FactResellersales
+        insert into summary_table
+        (
+            CurrencyKey, DiscountAmount, DueDate, DueDateKey, ExtendedAmount, Freight, Net_Profit_Margin,
+            OrderDate, OrderDateKey, OrderQuantity, ProductKey, ProductStandardCost, profit,
+            PromotionKey, RevisionNumber, SalesAmount, SalesChannel, SalesOrderLineNumber, SalesOrderNumber,
+            SalesTerritoryKey, ShipDate, ShipDateKey, TaxAmt, TotalProductCost, UnitPrice, UnitPriceDiscountPct
+        )
+        SELECT
+            CurrencyKey, DiscountAmount, DueDate, DueDateKey, ExtendedAmount, Freight, Net_Profit_Margin,
+            OrderDate, OrderDateKey, OrderQuantity, ProductKey, ProductStandardCost, profit,
+            PromotionKey, RevisionNumber, SalesAmount, SalesChannel, SalesOrderLineNumber, SalesOrderNumber,
+            SalesTerritoryKey, ShipDate, ShipDateKey, TaxAmt, TotalProductCost, UnitPrice, UnitPriceDiscountPct
+        FROM factInternetsales;
+        
+        -- Thêm dữ liệu từ bảng FactResellersales
+        INSERT INTO summary_table
+        (
+            CurrencyKey, DiscountAmount, DueDate, DueDateKey, ExtendedAmount, Freight, Net_Profit_Margin,
+            OrderDate, OrderDateKey, OrderQuantity, ProductKey, ProductStandardCost, profit,
+            PromotionKey, RevisionNumber, SalesAmount, SalesChannel, SalesOrderLineNumber, SalesOrderNumber,
+            SalesTerritoryKey, ShipDate, ShipDateKey, TaxAmt, TotalProductCost, UnitPrice, UnitPriceDiscountPct
+        )
+        SELECT
+            CurrencyKey, DiscountAmount, DueDate, DueDateKey, ExtendedAmount, Freight, Net_Profit_Margin,
+            OrderDate, OrderDateKey, OrderQuantity, ProductKey, ProductStandardCost, profit,
+            PromotionKey, RevisionNumber, SalesAmount, SalesChannel, SalesOrderLineNumber, SalesOrderNumber,
+            SalesTerritoryKey, ShipDate, ShipDateKey, TaxAmt, TotalProductCost, UnitPrice, UnitPriceDiscountPct
+        FROM FactResellersales;
+        ```
+        
+    - Then set the relationship between Summary_table and other tables.
+- **Exploratory Data Analysis - EDA and Descriptive Statistics**
+    - **1. Market Analytic**
+        - *Question 1: How many Region, City and State? What are they?*
+            
+            ```sql
+            --Region
+            select count(distinct(englishcountryregionname)) as 'Sum_of_Region' from DimGeography
+            select distinct(englishcountryregionname ) as 'Name of Region' from DimGeography
+            
+            --State
+            select count(distinct(StateProvinceName)) as 'Sum_Of_State' from DimGeography
+            
+            --City
+            select count(distinct(city)) as 'Sum_of_City' from DimGeography
+            ```
+            
+            ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/f564f74f-3253-4f96-82f0-974921b5d041/image.png)
+            
+            ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/198e6efe-6216-4422-b4d7-435c866a9c99/image.png)
+            
+            ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/7d59b487-7e1d-4ee3-ab9c-30b153205bf5/image.png)
+            
+            The AdventureWorks company operates, sells products, and currently has a presence, distributing its products across 6 regions: Australia, Canada, France, Germany, United Kingdom, and the United States. Specifically, across 71 states and 500 countries worldwide. 
+            
+        - *Question 2: Sales and Profit by Region?*
+            
+            ```sql
+            --Sales Amount and Profit by region, sorted by revenue in descending order.
+            select englishcountryregionname as 'Region',
+             sum(salesamount) as Sales_Amount,
+              sum(Profit) as 'Profit'
+            from summary_table
+            join DimSalesTerritory 
+            on summary_table.SalesTerritoryKey=DimSalesTerritory.SalesTerritoryKey
+            join DimGeography 
+            on DimSalesTerritory.SalesTerritoryKey=DimGeography.SalesTerritoryKey
+            group by englishcountryregionname
+            order by Sales_Amount desc
+            
+            ```
+            
+        - *Question 3: What are the top 3 cities with the highest sales Sales_Amount in each region?*
+            
+            ```sql
+            With city_salesamount as
+            (
+            select englishcountryregionname  as 'Region',
+             city                            as 'City', 
+             sum(salesamount)                as 'Sales_Amount',
+             row_number() over (partition by englishcountryregionname 
+             order by sum(salesamount) desc ) as 'Rank'
+            from summary_table 
+            join DimSalesTerritory 
+            on summary_table.SalesTerritoryKey=DimSalesTerritory.SalesTerritoryKey
+            join DimGeography 
+            on DimSalesTerritory.SalesTerritoryKey=DimGeography.SalesTerritoryKey 
+            group by englishcountryregionname, City
+            )
+            
+            select region, City, Sales_Amount, Rank from city_salesamount
+            where Rank <=3
+            order by Region, Rank
+            ```
+            
+        - Question 4: *What are the top 3 Year with the highest sales Sales_Amount in each region?*
+            
+            ```sql
+            With year_salesamount as
+            (
+            select calendarYear as 'Year',
+            englishcountryregionname as 'Region',
+             sum(salesamount)    as 'Sales_Amount',
+             row_number() over (partition by englishcountryregionname order by sum(salesamount) desc ) as 'Rank'
+            from summary_table 
+            join dimdate on summary_table.DueDateKey=DimDate.DateKey
+            join DimSalesTerritory on summary_table.SalesTerritoryKey=DimSalesTerritory.SalesTerritoryKey
+            join DimGeography on DimSalesTerritory.SalesTerritoryKey=DimGeography.SalesTerritoryKey 
+            group by englishcountryregionname, CalendarYear)
+            
+            select region,Year, Sales_Amount, Rank from year_salesamount
+            where Rank =1
+            order by Region, Rank
+            ```
+            
+    - **2.Product Analytic**
+        - *Question 1:How many Category, Subcategory, Product line and Product Type?*
+            
+            ```sql
+            select count(distinct (ProductCategoryKey)) as 'Sum Of Category'
+            from DimProductCategory
+            
+            select count(distinct (ProductsubCategoryKey))  as 'Sum Of SubCategory'
+            from DimProductSubcategory
+            
+            select count(distinct (ProductKey)) as 'Sum Of Product'
+            from DimProduct
+            ```
+            
+        - *Question 2: What is the average Unit Price by Category?*
+            
+            ```sql
+            --Average UnitPrice by Category
+            select Englishproductcategoryname as 'Category',
+            avg(UnitPrice) as 'AVG_Unit_Price'
+            from summary_table
+            join DimProduct on summary_table.ProductKey=DimProduct.ProductKey
+            join DimProductSubcategory 
+            on DimProduct.ProductSubcategoryKey=DimProductSubcategory.ProductSubcategoryKey
+            join DimProductCategory 
+            on DimProductSubcategory.ProductCategoryKey=DimProductCategory.ProductCategoryKey
+            group by Englishproductcategoryname
+            ```
+            
+        - *Question3: Sales Amount and Profit by Category in descending order?*
+            
+            ```sql
+            --Sales Amount and Profit by Category in descending order
+            select Englishproductcategoryname, sum(salesamount) as 'Sales Amount', sum(profit) as 'Profit'
+            from summary_table 
+            join DimProduct on summary_table.ProductKey=DimProduct.ProductKey
+            join DimProductSubcategory on DimProduct.ProductSubcategoryKey=DimProductSubcategory.ProductSubcategoryKey
+            join DimProductCategory on DimProductSubcategory.ProductCategoryKey=DimProductCategory.ProductCategoryKey
+            group by Englishproductcategoryname
+            order by [Sales Amount] desc
+            ```
+            
+        - *Question 4: In each Category, what is the Subcategory have highest sales amount?*
+            
+            ```sql
+            WITH category_salesamount AS
+            (
+                SELECT 
+                    EnglishProductCategoryName AS 'Category',
+                    EnglishProductSubcategoryName AS 'Subcategory',
+                    SUM(SalesAmount) AS 'Sales_Amount',
+                    ROW_NUMBER() OVER (PARTITION BY EnglishProductCategoryName ORDER BY SUM(SalesAmount) DESC) AS 'Rank'
+                FROM summary_table 
+                JOIN DimProduct ON summary_table.ProductKey = DimProduct.ProductKey
+                JOIN DimProductSubcategory ON DimProduct.ProductSubcategoryKey = DimProductSubcategory.ProductSubcategoryKey
+                JOIN DimProductCategory ON DimProductSubcategory.ProductCategoryKey = DimProductCategory.ProductCategoryKey
+                GROUP BY EnglishProductCategoryName, EnglishProductSubcategoryName
+            )
+            SELECT 
+                Category,
+                Subcategory,
+                Sales_Amount
+            FROM category_salesamount
+            WHERE Rank = 1
+            ORDER BY Category;
+            
+            ```
+            
+    - **3.Channel Performance Analysis**
+        - *Question 1: Sum of Sales Amount, Cost and Net Profit ?*
+            
+            ```sql
+            select Sum(salesamount) as 'Sales AMount',
+            Sum(TotalProductCost) as ' Cost', 
+            sum(Profit) as 'Net Profit'
+            from summary_tabl
+            ```
+            
+        - *Question 2:  Sales Amount of Two Channel by Year ?*
+            
+            ```sql
+            select SalesChannel as 'Channel', 
+            CalendarYear as 'Year', 
+            sum(salesamount) as 'Sales Amount'
+            from summary_table 
+            join dimdate on summary_table.DueDateKey=DimDate.DateKey
+            group by CalendarYear,SalesChannel
+            ```
+            
+        - *Question 3: What are the revenue share and profit share of the two sales channels?*
+            
+            ```sql
+            SELECT 
+                SalesChannel AS 'Sales_Channel', 
+                ROUND(SUM(SalesAmount) * 100.0 / (SELECT SUM(SalesAmount) FROM summary_table), 2) AS 'Revenue_Share_Percentage',
+                ROUND(SUM(Profit) * 100.0 / (SELECT SUM(Profit) FROM summary_table), 2) AS 'Profit_Share_Percentage'
+            FROM 
+                summary_table
+            GROUP BY 
+                SalesChannel
+            ORDER BY 
+                SalesChannel;
+            
+            ```
  ## Cấu trúc nội dung bài báo cáo 
  1. Overview
  2. Sales Product Analytics
