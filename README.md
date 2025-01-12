@@ -136,9 +136,10 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         ```
         
     
-- Vì thiết kế của cơ sở dữ liệu AdventureWorks chứa dữ liệu bán hàng cho hai kênh, Internet và Reseller, trong hai bảng riêng biệt, để khám phá các chỉ số kinh doanh tổng thể của công ty, cần phải kết hợp hai bảng này lại. Tuy nhiên, để phân biệt giữa dữ liệu từ kênh bán hàng Internet và Reseller, cần thêm một cột **Sales_Channel**.        
+    - Vì thiết kế của cơ sở dữ liệu AdventureWorks chứa dữ liệu bán hàng cho hai kênh, Internet và Reseller, trong hai bảng riêng biệt, để khám phá các chỉ số kinh doanh tổng thể của công ty, cần phải kết hợp hai bảng này lại. Tuy nhiên, để phân biệt giữa dữ liệu từ kênh bán hàng Internet và Reseller, cần thêm một cột **Sales_Channel**.
+          
         ```sql
-        --Add Column SalesChannel
+        
         alter table factinternetsales
         add  SalesChannel VARCHAR(50)
         
@@ -151,7 +152,6 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         
         update factresellersales
         set SalesChannel ='Reseller'
-        
         ```
         
         ```sql
@@ -205,7 +205,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         ```
         
     - Sau đó, thiết lập mối quan hệ giữa bảng **Summary_table** và các bảng khác.
-    - 
+      
   ## Exploratory Data Analysis - EDA and Descriptive Statistics
     **1. Market Analytic**
         - *Question 1: How many Region, City and State? What are they?*
