@@ -288,7 +288,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         order by Region, Rank
         ```
         
- **2.Product Analytic**
+   **2.Product Analytic**
     - *Question 1:How many Category, Subcategory, Product line and Product Type?*
         
         ```sql
