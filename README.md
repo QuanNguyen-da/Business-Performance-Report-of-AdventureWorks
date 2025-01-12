@@ -82,7 +82,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         
     - Không có dòng dữ liệu nào bị trùng lặp.
      <p align="center">
-   <img src="https://github.com/user-attachments/assets/e4be935e-6bca-4d98-a566-ff399967af29" alt="image" width="450">
+   <img src="https://github.com/user-attachments/assets/e4be935e-6bca-4d98-a566-ff399967af29" alt="image" width="350">
   </p>
         
   ### Feature Engineering
