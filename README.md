@@ -207,6 +207,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
     - Sau đó, thiết lập mối quan hệ giữa bảng **Summary_table** và các bảng khác.
       
   ## Exploratory Data Analysis - EDA and Descriptive Statistics
+  
     **1. Market Analytic**
         - *Question 1: How many Region, City and State? What are they?*
             
@@ -224,10 +225,9 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
    - <p align="center">
    <img src="https://github.com/user-attachments/assets/7ee5f495-e1fd-4d67-91ae-72523d0cde9b" alt="image" width="450">
   </p>
-
-           Công ty AdventureWorks hoạt động, bán sản phẩm và hiện đang phân phối sản phẩm của mình qua 6 khu vực: Australia, Canada, Pháp, Đức, Vương quốc Anh và Hoa Kỳ. Cụ thể, công ty có mặt ở 71 bang và 500 quốc gia trên toàn thế giới.
-            
-        - *Question 2: Sales and Profit by Region?*
+  - Công ty AdventureWorks hoạt động, bán sản phẩm và hiện đang phân phối sản phẩm của mình qua 6 khu vực: Australia, Canada, Pháp, Đức, Vương quốc Anh và Hoa Kỳ. Cụ thể, công ty có mặt ở 71 bang và 500 quốc gia trên toàn thế giới.
+  
+        -  *Question 2: Sales and Profit by Region?*
             
             ```sql
             --Sales Amount and Profit by region, sorted by revenue in descending order.
@@ -241,8 +241,8 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             on DimSalesTerritory.SalesTerritoryKey=DimGeography.SalesTerritoryKey
             group by englishcountryregionname
             order by Sales_Amount desc
-            
             ```
+           
             
         - *Question 3: What are the top 3 cities with the highest sales Sales_Amount in each region?*
             
