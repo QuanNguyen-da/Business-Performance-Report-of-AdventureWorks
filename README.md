@@ -213,18 +213,16 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
    - *Question 1: How many Region, City and State? What are they?*
 
             
-            ```sql
-  
-            --Region
-            select count(distinct(englishcountryregionname)) as 'Sum_of_Region' from DimGeography
-            select distinct(englishcountryregionname ) as 'Name of Region' from DimGeography
-            
-            --State
-            select count(distinct(StateProvinceName)) as 'Sum_Of_State' from DimGeography
-            
-            --City
-            select count(distinct(city)) as 'Sum_of_City' from DimGeography
-            ```
+           --Region
+select count(distinct(englishcountryregionname)) as 'Sum_of_Region' from DimGeography
+select distinct(englishcountryregionname) as 'Name of Region' from DimGeography
+
+--State
+select count(distinct(StateProvinceName)) as 'Sum_Of_State' from DimGeography
+
+--City
+select count(distinct(city)) as 'Sum_of_City' from DimGeography
+
      
    - <p align="center">
    <img src="https://github.com/user-attachments/assets/7ee5f495-e1fd-4d67-91ae-72523d0cde9b" alt="image" width="450">
