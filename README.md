@@ -210,7 +210,8 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
   
     **1. Market Analytic**
   
-        - *Question 1: How many Region, City and State? What are they?*
+   - *Question 1: How many Region, City and State? What are they?*
+
             
             ```sql
   
@@ -224,12 +225,14 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             --City
             select count(distinct(city)) as 'Sum_of_City' from DimGeography
             ```
+     
    - <p align="center">
    <img src="https://github.com/user-attachments/assets/7ee5f495-e1fd-4d67-91ae-72523d0cde9b" alt="image" width="450">
   </p>
   - Công ty AdventureWorks hoạt động, bán sản phẩm và hiện đang phân phối sản phẩm của mình qua 6 khu vực: Australia, Canada, Pháp, Đức, Vương quốc Anh và Hoa Kỳ. Cụ thể, công ty có mặt ở 71 bang và 500 quốc gia trên toàn thế giới.
   
-        -  *Question 2: Sales and Profit by Region?*
+   -  *Question 2: Sales and Profit by Region?*
+
             
             ```sql
             --Sales Amount and Profit by region, sorted by revenue in descending order.
@@ -244,10 +247,10 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             group by englishcountryregionname
             order by Sales_Amount desc
             ```
-           
+  
             
-        - *Question 3: What are the top 3 cities with the highest sales Sales_Amount in each region?*
-            
+      - *Question 3: What are the top 3 cities with the highest sales Sales_Amount in each region?*
+     
             ```sql
             With city_salesamount as
             (
@@ -268,8 +271,9 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             where Rank <=3
             order by Region, Rank
             ```
-            
-        - Question 4: *What are the top 3 Year with the highest sales Sales_Amount in each region?*
+ 
+     
+   - Question 4: *What are the top 3 Year with the highest sales Sales_Amount in each region?*
             
             ```sql
             With year_salesamount as
@@ -288,10 +292,13 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             where Rank =1
             order by Region, Rank
             ```
+
             
   **2.Product Analytic**
-        - *Question 1:How many Category, Subcategory, Product line and Product Type?*
-            
+  
+  - *Question 1:How many Category, Subcategory, Product line and Product Type?*
+
+  
             ```sql
             select count(distinct (ProductCategoryKey)) as 'Sum Of Category'
             from DimProductCategory
@@ -302,8 +309,8 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             select count(distinct (ProductKey)) as 'Sum Of Product'
             from DimProduct
             ```
-            
-        - *Question 2: What is the average Unit Price by Category?*
+  
+  - *Question 2: What is the average Unit Price by Category?*
             
             ```sql
             --Average UnitPrice by Category
@@ -317,8 +324,9 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             on DimProductSubcategory.ProductCategoryKey=DimProductCategory.ProductCategoryKey
             group by Englishproductcategoryname
             ```
-            
-        - *Question3: Sales Amount and Profit by Category in descending order?*
+ 
+
+  - *Question3: Sales Amount and Profit by Category in descending order?*
             
             ```sql
             --Sales Amount and Profit by Category in descending order
