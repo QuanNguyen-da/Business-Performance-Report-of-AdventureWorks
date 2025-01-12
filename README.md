@@ -399,19 +399,20 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
 
     Đối với một sản phẩm bán ra, chi phí trung bình ở kênh Reseller cao gấp gần ba lần so với kênh Internet (51,04 USD so với 147,48 USD).
     
-- **Kênh Bán Hàng**
+  - **Kênh Bán Hàng**
 
     Doanh thu ở kênh Reseller luôn cao hơn kênh Internet vì Reseller chủ yếu bán xe đạp, là những mặt hàng có giá cao nhất. Tuy nhiên, lợi nhuận ở kênh Internet lại lớn hơn rất nhiều so với kênh Reseller. Cần phải xem xét lại vấn đề chi phí ở kênh Reseller.
     
-- **Sản Phẩm**
+  - **Sản Phẩm**
 
     Nhìn chung, xe đạp là sản phẩm mang lại doanh thu và lợi nhuận chính cho doanh nghiệp.
     
     Phụ kiện là nhóm sản phẩm có tiềm năng lợi nhuận tốt nhất. Vì vậy, các doanh nghiệp cần cải thiện chất lượng và đa dạng hóa các dòng sản phẩm phụ kiện để đáp ứng nhu cầu của khách hàng toàn cầu.
     
-- **Thị Trường**
+  - **Thị Trường**
 
     Hoa Kỳ là thị trường lớn cho cả hai kênh bán hàng. Bên cạnh đó, Canada có số lượng đơn hàng đứng thứ hai chỉ sau Hoa Kỳ. Australia có tiềm năng bán hàng lớn.
+    
  ## Visualization
  1. Overview
  2. Sales Product Analytics
