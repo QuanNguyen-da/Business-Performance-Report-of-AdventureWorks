@@ -47,12 +47,12 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
     select * from FactResellerSales
     #Do the same for the remaining tables.
     ```
-- 3. Cleaning Data
-    - Cheking for missing values/null
+  ### Cleaning Data
+    - Kiểm tra giá trị thiếu/null
         
-        I checked in Excel by using filters and then removing missing values or nulls.
+        Tôi đã kiểm tra trong Excel bằng cách sử dụng bộ lọc và sau đó loại bỏ các giá trị thiếu hoặc null.
         
-    - Remove some columns that are not necessary and null
+    - Loại bỏ một số cột không cần thiết và có giá trị null.
         
         ```sql
         alter table dimcustomer
@@ -69,7 +69,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         # Do the same for the remaining tables.
         ```
         
-    - Check for duplicate rows in the primary key columns.
+    - Kiểm tra các dòng trùng lặp trong các cột khóa chính.
         
         ```sql
         select  count(*) - count( distinct customerkey)  
@@ -80,12 +80,13 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         # Do the same for the remaining tables.
         ```
         
-    - There are no duplicate rows.
+    - Không có dòng dữ liệu nào bị trùng lặp.
+     <p align="center">
+   <img src="https://github.com/user-attachments/assets/e4be935e-6bca-4d98-a566-ff399967af29" alt="image" width="450">
+  </p>
         
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/f0609795-b401-410e-9564-ecec503d69da/image.png)
-        
-- 4. Feature Engineering
-    - **Age**: Age is essential information for analysis but is not readily available. It is calculated using the `DATEDIFF` function to determine the difference between the customer's year of birth and the current year. This value represents the customer's age.
+  ### Feature Engineering
+    - **Age**: Tuổi là thông tin quan trọng để phân tích nhưng không có sẵn. Nó được tính toán bằng cách sử dụng hàm `DATEDIFF` để xác định sự khác biệt giữa năm sinh của khách hàng và năm hiện tại. Giá trị này đại diện cho độ tuổi của khách hàng.
         
         ```sql
         Alter table dimcustomer
@@ -96,7 +97,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         
         ```
         
-    - **Profit**: This is the net profit for the business after deducting all expenses. This column is calculated by subtracting the Total Product Cost from the Extended Amount.
+    - **Profit**: Đây là lợi nhuận ròng của doanh nghiệp sau khi trừ tất cả các chi phí. Cột này được tính bằng cách trừ Extended Amount cho Total Product Cost.
         
         ```sql
         --Add Column Profit
@@ -115,7 +116,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         ```
         
     
-    - **Net Profit Margin:** This is the net profit margin, which evaluates the profitability of the business. It is calculated by dividing Profit by Sales Amount.
+    - **Net Profit Margin:** Đây là biên lợi nhuận ròng, đánh giá khả năng sinh lời của doanh nghiệp. Nó được tính bằng cách chia Lợi Nhuận cho Doanh Thu.
         
         ```sql
         
@@ -135,8 +136,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         ```
         
     
-    - Because the design of the AdventureWorks database contains sales data for the two channels, Internet and Reseller, in two separate tables, in order to explore the overall business metrics of the company, these two tables need to be merged. However, to distinguish between the data from the Internet and Reseller sales channels, an additional column, **Sales_Channel**, is required.
-        
+- Vì thiết kế của cơ sở dữ liệu AdventureWorks chứa dữ liệu bán hàng cho hai kênh, Internet và Reseller, trong hai bảng riêng biệt, để khám phá các chỉ số kinh doanh tổng thể của công ty, cần phải kết hợp hai bảng này lại. Tuy nhiên, để phân biệt giữa dữ liệu từ kênh bán hàng Internet và Reseller, cần thêm một cột **Sales_Channel**.        
         ```sql
         --Add Column SalesChannel
         alter table factinternetsales
@@ -204,9 +204,10 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         FROM FactResellersales;
         ```
         
-    - Then set the relationship between Summary_table and other tables.
-- **Exploratory Data Analysis - EDA and Descriptive Statistics**
-    - **1. Market Analytic**
+    - Sau đó, thiết lập mối quan hệ giữa bảng **Summary_table** và các bảng khác.
+    - 
+  ## Exploratory Data Analysis - EDA and Descriptive Statistics
+    **1. Market Analytic**
         - *Question 1: How many Region, City and State? What are they?*
             
             ```sql
@@ -220,14 +221,11 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             --City
             select count(distinct(city)) as 'Sum_of_City' from DimGeography
             ```
-            
-            ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/f564f74f-3253-4f96-82f0-974921b5d041/image.png)
-            
-            ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/198e6efe-6216-4422-b4d7-435c866a9c99/image.png)
-            
-            ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/7d59b487-7e1d-4ee3-ab9c-30b153205bf5/image.png)
-            
-            The AdventureWorks company operates, sells products, and currently has a presence, distributing its products across 6 regions: Australia, Canada, France, Germany, United Kingdom, and the United States. Specifically, across 71 states and 500 countries worldwide. 
+   - <p align="center">
+   <img src="https://github.com/user-attachments/assets/7ee5f495-e1fd-4d67-91ae-72523d0cde9b" alt="image" width="450">
+  </p>
+
+           Công ty AdventureWorks hoạt động, bán sản phẩm và hiện đang phân phối sản phẩm của mình qua 6 khu vực: Australia, Canada, Pháp, Đức, Vương quốc Anh và Hoa Kỳ. Cụ thể, công ty có mặt ở 71 bang và 500 quốc gia trên toàn thế giới.
             
         - *Question 2: Sales and Profit by Region?*
             
@@ -289,7 +287,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             order by Region, Rank
             ```
             
-    - **2.Product Analytic**
+  **2.Product Analytic**
         - *Question 1:How many Category, Subcategory, Product line and Product Type?*
             
             ```sql
@@ -357,7 +355,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             
             ```
             
-    - **3.Channel Performance Analysis**
+  **3.Channel Performance Analysis**
         - *Question 1: Sum of Sales Amount, Cost and Net Profit ?*
             
             ```sql
@@ -395,25 +393,26 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             ```
             
     
-- **Insights and Recommendations**
+###  **Insights and Recommendations**
     - Cost
         
-        For a product sold, the average cost in the Reseller channel is nearly three times higher than in the Internet channel (51.04 USD compared to 147.48 USD).
+        Đối với một sản phẩm được bán, chi phí trung bình trong kênh Reseller cao gấp gần ba lần so với kênh Internet (51,04 USD so với 147,48 USD)..
         
     - Sales Channel
         
-        Revenue in the Reseller channel is always higher than in the Internet channel because Reseller mainly sells bicycles, which are the highest-priced items. However, the profit in the Internet channel is many times greater than that in Reseller. It is necessary to reconsider the cost issue in the Reseller channel.
+        Doanh thu trong kênh Reseller luôn cao hơn trong kênh Internet vì Reseller chủ yếu bán xe đạp, là những sản phẩm có giá cao nhất. Tuy nhiên, lợi nhuận trong kênh Internet lại gấp nhiều lần so với kênh Reseller. Cần phải xem xét lại vấn đề chi phí trong kênh Reseller.
         
     - Product
         
-        In general, Bikes are a product that brings in main revenue as well as profit profits for businesses.
-        
-        Accessories is the product group with the best profit potential. That's why, businesses should improve quality and diversify product lines accessories to meet the needs of global customers.
+        Nói chung, xe đạp là sản phẩm mang lại doanh thu và lợi nhuận chính cho doanh nghiệp.
+
+        Phụ kiện là nhóm sản phẩm có tiềm năng lợi nhuận tốt nhất. Vì vậy, doanh nghiệp nên cải thiện chất lượng và đa dạng hóa các dòng sản phẩm phụ kiện để đáp ứng nhu cầu của khách hàng toàn cầu.
         
     - Market
         
-        United States is a large market for both sales channels. Besides, Canada has the number of orders ranked second only to the United States. There is great potential for sales in Australia.
- ## Cấu trúc nội dung bài báo cáo 
+       Hoa Kỳ là thị trường lớn cho cả hai kênh bán hàng. Bên cạnh đó, Canada có số lượng đơn hàng đứng thứ hai chỉ sau Hoa Kỳ. Có tiềm năng lớn để bán hàng tại Úc.
+       
+ ## Visualization
  1. Overview
  2. Sales Product Analytics
  3. Sales Market Analytics
