@@ -208,220 +208,213 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
       
   ## Exploratory Data Analysis - EDA and Descriptive Statistics
   
-    **1. Market Analytic**
-  
-   - *Question 1: How many Region, City and State? What are they?*
-     
- ```sql
-    select count(distinct(englishcountryregionname)) as 'Sum_of_Region' from DimGeography
-    select distinct(englishcountryregionname) as 'Name of Region' from DimGeography
-
-    --State
-    select count(distinct(StateProvinceName)) as 'Sum_Of_State' from DimGeography
-    
-    --City
-    select count(distinct(city)) as 'Sum_of_City' from DimGeography
-    ```
-
-
-
-  <p align="center">
-   <img src="https://github.com/user-attachments/assets/7ee5f495-e1fd-4d67-91ae-72523d0cde9b" alt="image" width="450">
-</p>
-
-  - Công ty AdventureWorks hoạt động, bán sản phẩm và hiện đang phân phối sản phẩm của mình qua 6 khu vực: Australia, Canada, Pháp, Đức, Vương quốc Anh và Hoa Kỳ. Cụ thể, công ty có mặt ở 71 bang và 500 quốc gia trên toàn thế giới.
-  
-   -  *Question 2: Sales and Profit by Region?*
-
-            
-            ```sql
-            --Sales Amount and Profit by region, sorted by revenue in descending order.
-            select englishcountryregionname as 'Region',
-             sum(salesamount) as Sales_Amount,
-              sum(Profit) as 'Profit'
-            from summary_table
-            join DimSalesTerritory 
-            on summary_table.SalesTerritoryKey=DimSalesTerritory.SalesTerritoryKey
-            join DimGeography 
-            on DimSalesTerritory.SalesTerritoryKey=DimGeography.SalesTerritoryKey
-            group by englishcountryregionname
-            order by Sales_Amount desc
-            ```
-  
-            
-      - *Question 3: What are the top 3 cities with the highest sales Sales_Amount in each region?*
-     
-            ```sql
-            With city_salesamount as
-            (
-            select englishcountryregionname  as 'Region',
-             city                            as 'City', 
-             sum(salesamount)                as 'Sales_Amount',
-             row_number() over (partition by englishcountryregionname 
-             order by sum(salesamount) desc ) as 'Rank'
-            from summary_table 
-            join DimSalesTerritory 
-            on summary_table.SalesTerritoryKey=DimSalesTerritory.SalesTerritoryKey
-            join DimGeography 
-            on DimSalesTerritory.SalesTerritoryKey=DimGeography.SalesTerritoryKey 
-            group by englishcountryregionname, City
-            )
-            
-            select region, City, Sales_Amount, Rank from city_salesamount
-            where Rank <=3
-            order by Region, Rank
-            ```
- 
-     
-   - Question 4: *What are the top 3 Year with the highest sales Sales_Amount in each region?*
-            
-            ```sql
-            With year_salesamount as
-            (
-            select calendarYear as 'Year',
-            englishcountryregionname as 'Region',
-             sum(salesamount)    as 'Sales_Amount',
-             row_number() over (partition by englishcountryregionname order by sum(salesamount) desc ) as 'Rank'
-            from summary_table 
-            join dimdate on summary_table.DueDateKey=DimDate.DateKey
-            join DimSalesTerritory on summary_table.SalesTerritoryKey=DimSalesTerritory.SalesTerritoryKey
-            join DimGeography on DimSalesTerritory.SalesTerritoryKey=DimGeography.SalesTerritoryKey 
-            group by englishcountryregionname, CalendarYear)
-            
-            select region,Year, Sales_Amount, Rank from year_salesamount
-            where Rank =1
-            order by Region, Rank
-            ```
-
-            
-  **2.Product Analytic**
-  
-  - *Question 1:How many Category, Subcategory, Product line and Product Type?*
-
-  
-            ```sql
-            select count(distinct (ProductCategoryKey)) as 'Sum Of Category'
-            from DimProductCategory
-            
-            select count(distinct (ProductsubCategoryKey))  as 'Sum Of SubCategory'
-            from DimProductSubcategory
-            
-            select count(distinct (ProductKey)) as 'Sum Of Product'
-            from DimProduct
-            ```
-  
-  - *Question 2: What is the average Unit Price by Category?*
-            
-            ```sql
-            --Average UnitPrice by Category
-            select Englishproductcategoryname as 'Category',
-            avg(UnitPrice) as 'AVG_Unit_Price'
-            from summary_table
-            join DimProduct on summary_table.ProductKey=DimProduct.ProductKey
-            join DimProductSubcategory 
-            on DimProduct.ProductSubcategoryKey=DimProductSubcategory.ProductSubcategoryKey
-            join DimProductCategory 
-            on DimProductSubcategory.ProductCategoryKey=DimProductCategory.ProductCategoryKey
-            group by Englishproductcategoryname
-            ```
- 
-
-  - *Question3: Sales Amount and Profit by Category in descending order?*
-            
-            ```sql
-            --Sales Amount and Profit by Category in descending order
-            select Englishproductcategoryname, sum(salesamount) as 'Sales Amount', sum(profit) as 'Profit'
-            from summary_table 
-            join DimProduct on summary_table.ProductKey=DimProduct.ProductKey
-            join DimProductSubcategory on DimProduct.ProductSubcategoryKey=DimProductSubcategory.ProductSubcategoryKey
-            join DimProductCategory on DimProductSubcategory.ProductCategoryKey=DimProductCategory.ProductCategoryKey
-            group by Englishproductcategoryname
-            order by [Sales Amount] desc
-            ```
-            
-        - *Question 4: In each Category, what is the Subcategory have highest sales amount?*
-            
-            ```sql
-            WITH category_salesamount AS
-            (
-                SELECT 
-                    EnglishProductCategoryName AS 'Category',
-                    EnglishProductSubcategoryName AS 'Subcategory',
-                    SUM(SalesAmount) AS 'Sales_Amount',
-                    ROW_NUMBER() OVER (PARTITION BY EnglishProductCategoryName ORDER BY SUM(SalesAmount) DESC) AS 'Rank'
-                FROM summary_table 
-                JOIN DimProduct ON summary_table.ProductKey = DimProduct.ProductKey
-                JOIN DimProductSubcategory ON DimProduct.ProductSubcategoryKey = DimProductSubcategory.ProductSubcategoryKey
-                JOIN DimProductCategory ON DimProductSubcategory.ProductCategoryKey = DimProductCategory.ProductCategoryKey
-                GROUP BY EnglishProductCategoryName, EnglishProductSubcategoryName
-            )
+ - **1. Market Analytic**
+    - *Question 1: How many Region, City and State? What are they?*
+        
+        ```sql
+        --Region
+        select count(distinct(englishcountryregionname)) as 'Sum_of_Region' from DimGeography
+        select distinct(englishcountryregionname ) as 'Name of Region' from DimGeography
+        
+        --State
+        select count(distinct(StateProvinceName)) as 'Sum_Of_State' from DimGeography
+        
+        --City
+        select count(distinct(city)) as 'Sum_of_City' from DimGeography
+        ```
+        
+        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/f564f74f-3253-4f96-82f0-974921b5d041/image.png)
+        
+        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/198e6efe-6216-4422-b4d7-435c866a9c99/image.png)
+        
+        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/7d59b487-7e1d-4ee3-ab9c-30b153205bf5/image.png)
+        
+        The AdventureWorks company operates, sells products, and currently has a presence, distributing its products across 6 regions: Australia, Canada, France, Germany, United Kingdom, and the United States. Specifically, across 71 states and 500 countries worldwide. 
+        
+    - *Question 2: Sales and Profit by Region?*
+        
+        ```sql
+        --Sales Amount and Profit by region, sorted by revenue in descending order.
+        select englishcountryregionname as 'Region',
+         sum(salesamount) as Sales_Amount,
+          sum(Profit) as 'Profit'
+        from summary_table
+        join DimSalesTerritory 
+        on summary_table.SalesTerritoryKey=DimSalesTerritory.SalesTerritoryKey
+        join DimGeography 
+        on DimSalesTerritory.SalesTerritoryKey=DimGeography.SalesTerritoryKey
+        group by englishcountryregionname
+        order by Sales_Amount desc
+        
+        ```
+        
+    - *Question 3: What are the top 3 cities with the highest sales Sales_Amount in each region?*
+        
+        ```sql
+        With city_salesamount as
+        (
+        select englishcountryregionname  as 'Region',
+         city                            as 'City', 
+         sum(salesamount)                as 'Sales_Amount',
+         row_number() over (partition by englishcountryregionname 
+         order by sum(salesamount) desc ) as 'Rank'
+        from summary_table 
+        join DimSalesTerritory 
+        on summary_table.SalesTerritoryKey=DimSalesTerritory.SalesTerritoryKey
+        join DimGeography 
+        on DimSalesTerritory.SalesTerritoryKey=DimGeography.SalesTerritoryKey 
+        group by englishcountryregionname, City
+        )
+        
+        select region, City, Sales_Amount, Rank from city_salesamount
+        where Rank <=3
+        order by Region, Rank
+        ```
+        
+    - Question 4: *What are the top 3 Year with the highest sales Sales_Amount in each region?*
+        
+        ```sql
+        With year_salesamount as
+        (
+        select calendarYear as 'Year',
+        englishcountryregionname as 'Region',
+         sum(salesamount)    as 'Sales_Amount',
+         row_number() over (partition by englishcountryregionname order by sum(salesamount) desc ) as 'Rank'
+        from summary_table 
+        join dimdate on summary_table.DueDateKey=DimDate.DateKey
+        join DimSalesTerritory on summary_table.SalesTerritoryKey=DimSalesTerritory.SalesTerritoryKey
+        join DimGeography on DimSalesTerritory.SalesTerritoryKey=DimGeography.SalesTerritoryKey 
+        group by englishcountryregionname, CalendarYear)
+        
+        select region,Year, Sales_Amount, Rank from year_salesamount
+        where Rank =1
+        order by Region, Rank
+        ```
+        
+- **2.Product Analytic**
+    - *Question 1:How many Category, Subcategory, Product line and Product Type?*
+        
+        ```sql
+        select count(distinct (ProductCategoryKey)) as 'Sum Of Category'
+        from DimProductCategory
+        
+        select count(distinct (ProductsubCategoryKey))  as 'Sum Of SubCategory'
+        from DimProductSubcategory
+        
+        select count(distinct (ProductKey)) as 'Sum Of Product'
+        from DimProduct
+        ```
+        
+    - *Question 2: What is the average Unit Price by Category?*
+        
+        ```sql
+        --Average UnitPrice by Category
+        select Englishproductcategoryname as 'Category',
+        avg(UnitPrice) as 'AVG_Unit_Price'
+        from summary_table
+        join DimProduct on summary_table.ProductKey=DimProduct.ProductKey
+        join DimProductSubcategory 
+        on DimProduct.ProductSubcategoryKey=DimProductSubcategory.ProductSubcategoryKey
+        join DimProductCategory 
+        on DimProductSubcategory.ProductCategoryKey=DimProductCategory.ProductCategoryKey
+        group by Englishproductcategoryname
+        ```
+        
+    - *Question3: Sales Amount and Profit by Category in descending order?*
+        
+        ```sql
+        --Sales Amount and Profit by Category in descending order
+        select Englishproductcategoryname, sum(salesamount) as 'Sales Amount', sum(profit) as 'Profit'
+        from summary_table 
+        join DimProduct on summary_table.ProductKey=DimProduct.ProductKey
+        join DimProductSubcategory on DimProduct.ProductSubcategoryKey=DimProductSubcategory.ProductSubcategoryKey
+        join DimProductCategory on DimProductSubcategory.ProductCategoryKey=DimProductCategory.ProductCategoryKey
+        group by Englishproductcategoryname
+        order by [Sales Amount] desc
+        ```
+        
+    - *Question 4: In each Category, what is the Subcategory have highest sales amount?*
+        
+        ```sql
+        WITH category_salesamount AS
+        (
             SELECT 
-                Category,
-                Subcategory,
-                Sales_Amount
-            FROM category_salesamount
-            WHERE Rank = 1
-            ORDER BY Category;
-            
-            ```
-            
-  **3.Channel Performance Analysis**
-        - *Question 1: Sum of Sales Amount, Cost and Net Profit ?*
-            
-            ```sql
-            select Sum(salesamount) as 'Sales AMount',
-            Sum(TotalProductCost) as ' Cost', 
-            sum(Profit) as 'Net Profit'
-            from summary_tabl
-            ```
-            
-        - *Question 2:  Sales Amount of Two Channel by Year ?*
-            
-            ```sql
-            select SalesChannel as 'Channel', 
-            CalendarYear as 'Year', 
-            sum(salesamount) as 'Sales Amount'
-            from summary_table 
-            join dimdate on summary_table.DueDateKey=DimDate.DateKey
-            group by CalendarYear,SalesChannel
-            ```
-            
-        - *Question 3: What are the revenue share and profit share of the two sales channels?*
-            
-            ```sql
-            SELECT 
-                SalesChannel AS 'Sales_Channel', 
-                ROUND(SUM(SalesAmount) * 100.0 / (SELECT SUM(SalesAmount) FROM summary_table), 2) AS 'Revenue_Share_Percentage',
-                ROUND(SUM(Profit) * 100.0 / (SELECT SUM(Profit) FROM summary_table), 2) AS 'Profit_Share_Percentage'
-            FROM 
-                summary_table
-            GROUP BY 
-                SalesChannel
-            ORDER BY 
-                SalesChannel;
-            
-            ```
-            
-    
-###  **Insights and Recommendations**
+                EnglishProductCategoryName AS 'Category',
+                EnglishProductSubcategoryName AS 'Subcategory',
+                SUM(SalesAmount) AS 'Sales_Amount',
+                ROW_NUMBER() OVER (PARTITION BY EnglishProductCategoryName ORDER BY SUM(SalesAmount) DESC) AS 'Rank'
+            FROM summary_table 
+            JOIN DimProduct ON summary_table.ProductKey = DimProduct.ProductKey
+            JOIN DimProductSubcategory ON DimProduct.ProductSubcategoryKey = DimProductSubcategory.ProductSubcategoryKey
+            JOIN DimProductCategory ON DimProductSubcategory.ProductCategoryKey = DimProductCategory.ProductCategoryKey
+            GROUP BY EnglishProductCategoryName, EnglishProductSubcategoryName
+        )
+        SELECT 
+            Category,
+            Subcategory,
+            Sales_Amount
+        FROM category_salesamount
+        WHERE Rank = 1
+        ORDER BY Category;
+        
+        ```
+        
+- **3.Channel Performance Analysis**
+    - *Question 1: Sum of Sales Amount, Cost and Net Profit ?*
+        
+        ```sql
+        select Sum(salesamount) as 'Sales AMount',
+        Sum(TotalProductCost) as ' Cost', 
+        sum(Profit) as 'Net Profit'
+        from summary_tabl
+        ```
+        
+    - *Question 2:  Sales Amount of Two Channel by Year ?*
+        
+        ```sql
+        select SalesChannel as 'Channel', 
+        CalendarYear as 'Year', 
+        sum(salesamount) as 'Sales Amount'
+        from summary_table 
+        join dimdate on summary_table.DueDateKey=DimDate.DateKey
+        group by CalendarYear,SalesChannel
+        ```
+        
+    - *Question 3: What are the revenue share and profit share of the two sales channels?*
+        
+        ```sql
+        SELECT 
+            SalesChannel AS 'Sales_Channel', 
+            ROUND(SUM(SalesAmount) * 100.0 / (SELECT SUM(SalesAmount) FROM summary_table), 2) AS 'Revenue_Share_Percentage',
+            ROUND(SUM(Profit) * 100.0 / (SELECT SUM(Profit) FROM summary_table), 2) AS 'Profit_Share_Percentage'
+        FROM 
+            summary_table
+        GROUP BY 
+            SalesChannel
+        ORDER BY 
+            SalesChannel;
+        
+        ```
+        
+
+- **Insights and Recommendations**
     - Cost
         
-        Đối với một sản phẩm được bán, chi phí trung bình trong kênh Reseller cao gấp gần ba lần so với kênh Internet (51,04 USD so với 147,48 USD)..
+        For a product sold, the average cost in the Reseller channel is nearly three times higher than in the Internet channel (51.04 USD compared to 147.48 USD).
         
     - Sales Channel
         
-        Doanh thu trong kênh Reseller luôn cao hơn trong kênh Internet vì Reseller chủ yếu bán xe đạp, là những sản phẩm có giá cao nhất. Tuy nhiên, lợi nhuận trong kênh Internet lại gấp nhiều lần so với kênh Reseller. Cần phải xem xét lại vấn đề chi phí trong kênh Reseller.
+        Revenue in the Reseller channel is always higher than in the Internet channel because Reseller mainly sells bicycles, which are the highest-priced items. However, the profit in the Internet channel is many times greater than that in Reseller. It is necessary to reconsider the cost issue in the Reseller channel.
         
     - Product
         
-        Nói chung, xe đạp là sản phẩm mang lại doanh thu và lợi nhuận chính cho doanh nghiệp.
-
-        Phụ kiện là nhóm sản phẩm có tiềm năng lợi nhuận tốt nhất. Vì vậy, doanh nghiệp nên cải thiện chất lượng và đa dạng hóa các dòng sản phẩm phụ kiện để đáp ứng nhu cầu của khách hàng toàn cầu.
+        In general, Bikes are a product that brings in main revenue as well as profit profits for businesses.
+        
+        Accessories is the product group with the best profit potential. That's why, businesses should improve quality and diversify product lines accessories to meet the needs of global customers.
         
     - Market
         
-       Hoa Kỳ là thị trường lớn cho cả hai kênh bán hàng. Bên cạnh đó, Canada có số lượng đơn hàng đứng thứ hai chỉ sau Hoa Kỳ. Có tiềm năng lớn để bán hàng tại Úc.
-       
+        United States is a large market for both sales channels. Besides, Canada has the number of orders ranked second only to the United States. There is great potential for sales in Australia.
  ## Visualization
  1. Overview
  2. Sales Product Analytics
