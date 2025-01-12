@@ -208,7 +208,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
       
   ## Exploratory Data Analysis - EDA and Descriptive Statistics
   
- - **1. Market Analytic**
+  **1. Market Analytic**
     - *Question 1: How many Region, City and State? What are they?*
         
         ```sql
@@ -223,13 +223,10 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         select count(distinct(city)) as 'Sum_of_City' from DimGeography
         ```
         
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/f564f74f-3253-4f96-82f0-974921b5d041/image.png)
+        ![image](https://github.com/user-attachments/assets/68a8c3d5-9977-4a41-b33c-742e60214a13)
+
         
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/198e6efe-6216-4422-b4d7-435c866a9c99/image.png)
-        
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/7d59b487-7e1d-4ee3-ab9c-30b153205bf5/image.png)
-        
-        The AdventureWorks company operates, sells products, and currently has a presence, distributing its products across 6 regions: Australia, Canada, France, Germany, United Kingdom, and the United States. Specifically, across 71 states and 500 countries worldwide. 
+        Công ty AdventureWorks hoạt động và bán sản phẩm, hiện đang có mặt và phân phối sản phẩm của mình tại 6 khu vực: Australia, Canada, Pháp, Đức, Vương quốc Anh và Hoa Kỳ. Cụ thể, công ty này có mặt ở 71 tiểu bang và 500 quốc gia trên toàn cầu. 
         
     - *Question 2: Sales and Profit by Region?*
         
@@ -291,7 +288,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         order by Region, Rank
         ```
         
-- **2.Product Analytic**
+ **2.Product Analytic**
     - *Question 1:How many Category, Subcategory, Product line and Product Type?*
         
         ```sql
@@ -359,7 +356,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         
         ```
         
-- **3.Channel Performance Analysis**
+**3.Channel Performance Analysis**
     - *Question 1: Sum of Sales Amount, Cost and Net Profit ?*
         
         ```sql
@@ -398,23 +395,23 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         
 
 - **Insights and Recommendations**
-    - Cost
-        
-        For a product sold, the average cost in the Reseller channel is nearly three times higher than in the Internet channel (51.04 USD compared to 147.48 USD).
-        
-    - Sales Channel
-        
-        Revenue in the Reseller channel is always higher than in the Internet channel because Reseller mainly sells bicycles, which are the highest-priced items. However, the profit in the Internet channel is many times greater than that in Reseller. It is necessary to reconsider the cost issue in the Reseller channel.
-        
-    - Product
-        
-        In general, Bikes are a product that brings in main revenue as well as profit profits for businesses.
-        
-        Accessories is the product group with the best profit potential. That's why, businesses should improve quality and diversify product lines accessories to meet the needs of global customers.
-        
-    - Market
-        
-        United States is a large market for both sales channels. Besides, Canada has the number of orders ranked second only to the United States. There is great potential for sales in Australia.
+    - **Chi phí**
+
+    Đối với một sản phẩm bán ra, chi phí trung bình ở kênh Reseller cao gấp gần ba lần so với kênh Internet (51,04 USD so với 147,48 USD).
+    
+- **Kênh Bán Hàng**
+
+    Doanh thu ở kênh Reseller luôn cao hơn kênh Internet vì Reseller chủ yếu bán xe đạp, là những mặt hàng có giá cao nhất. Tuy nhiên, lợi nhuận ở kênh Internet lại lớn hơn rất nhiều so với kênh Reseller. Cần phải xem xét lại vấn đề chi phí ở kênh Reseller.
+    
+- **Sản Phẩm**
+
+    Nhìn chung, xe đạp là sản phẩm mang lại doanh thu và lợi nhuận chính cho doanh nghiệp.
+    
+    Phụ kiện là nhóm sản phẩm có tiềm năng lợi nhuận tốt nhất. Vì vậy, các doanh nghiệp cần cải thiện chất lượng và đa dạng hóa các dòng sản phẩm phụ kiện để đáp ứng nhu cầu của khách hàng toàn cầu.
+    
+- **Thị Trường**
+
+    Hoa Kỳ là thị trường lớn cho cả hai kênh bán hàng. Bên cạnh đó, Canada có số lượng đơn hàng đứng thứ hai chỉ sau Hoa Kỳ. Australia có tiềm năng bán hàng lớn.
  ## Visualization
  1. Overview
  2. Sales Product Analytics
