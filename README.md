@@ -37,8 +37,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
    <img src="https://github.com/user-attachments/assets/cd0165b8-2868-4e94-9910-d2c0e75ea566" alt="image" width="450">
   </p>
   
-    
-- Make sure the data is successfully imported by viewing the data in the tables.
+- Hãy đảm bảo rằng dữ liệu đã được nhập thành công bằng cách xem dữ liệu trong các bảng.
     
     ```sql
     select * from DimCustomer
@@ -49,12 +48,10 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
     #Do the same for the remaining tables.
     ```
     
-- 3. Cleaning Data
-    - Cheking for missing values/null
-        
-        I checked in Excel by using filters and then removing missing values or nulls.
-        
-    - Remove some columns that are not necessary and null
+### Cleaning Data
+- Kiểm tra giá trị thiếu/null
+- Tôi đã kiểm tra trong Excel bằng cách sử dụng bộ lọc và sau đó loại bỏ các giá trị thiếu hoặc null.
+- Loại bỏ một số cột không cần thiết và có giá trị null.
         
         ```sql
         alter table dimcustomer
@@ -71,8 +68,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         # Do the same for the remaining tables.
         ```
         
-    - Check for duplicate rows in the primary key columns.
-        
+- Kiểm tra các dòng trùng lặp trong các cột khóa chính.        
         ```sql
         select  count(*) - count( distinct customerkey)  
         as N'Số khóa bị trùng của Dimcustomer' from DimCustomer
@@ -81,14 +77,13 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         as N'Số khóa bị trùng của Dimproduct' from DimProduct
         # Do the same for the remaining tables.
         ```
+- Không có dòng trùng lặp.
+  <p align="center">
+   <img src="https://github.com/user-attachments/assets/608c31ef-6b02-4705-8113-26db9d5c15d1" alt="image" width="450">
+  </p>       
         
-    - There are no duplicate rows.
-        
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/f0609795-b401-410e-9564-ecec503d69da/image.png)
-        
-- 4. Feature Engineering
-    - **Age**: Age is essential information for analysis but is not readily available. It is calculated using the `DATEDIFF` function to determine the difference between the customer's year of birth and the current year. This value represents the customer's age.
-        
+### Feature Engineering
+- **Tuổi**: Tuổi là thông tin quan trọng để phân tích nhưng không có sẵn ngay lập tức. Nó được tính toán bằng cách sử dụng hàm `DATEDIFF` để xác định sự chênh lệch giữa năm sinh của khách hàng và năm hiện tại. Giá trị này đại diện cho độ tuổi của khách hàng.        
         ```sql
         Alter table dimcustomer
         add Age int
@@ -98,8 +93,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         
         ```
         
-    - **Profit**: This is the net profit for the business after deducting all expenses. This column is calculated by subtracting the Total Product Cost from the Extended Amount.
-        
+- **Lợi nhuận**: Đây là lợi nhuận ròng của doanh nghiệp sau khi trừ tất cả các chi phí. Cột này được tính bằng cách trừ Tổng Chi Phí Sản Phẩm từ Số Tiền Mở Rộng.        
         ```sql
         --Add Column Profit
         alter table factinternetsales
@@ -116,9 +110,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         set Profit=ExtendedAmount - TotalProductCost
         ```
         
-    
-    - **Net Profit Margin:** This is the net profit margin, which evaluates the profitability of the business. It is calculated by dividing Profit by Sales Amount.
-        
+  - **Biên lợi nhuận ròng**: Đây là biên lợi nhuận ròng, đánh giá khả năng sinh lời của doanh nghiệp. Nó được tính bằng cách chia Lợi nhuận cho Số Tiền Bán Hàng.        
         ```sql
         
         --Add Column Net Profit Margin
@@ -136,9 +128,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         set Net_Profit_Margin=profit/SalesAmount
         ```
         
-    
-    - Because the design of the AdventureWorks database contains sales data for the two channels, Internet and Reseller, in two separate tables, in order to explore the overall business metrics of the company, these two tables need to be merged. However, to distinguish between the data from the Internet and Reseller sales channels, an additional column, **Sales_Channel**, is required.
-        
+- Vì thiết kế của cơ sở dữ liệu AdventureWorks chứa dữ liệu bán hàng cho hai kênh, Internet và Reseller, trong hai bảng riêng biệt, để khám phá các chỉ số kinh doanh tổng thể của công ty, hai bảng này cần phải được hợp nhất. Tuy nhiên, để phân biệt giữa dữ liệu từ các kênh bán hàng Internet và Reseller, cần một cột bổ sung, **Sales_Channel**.        
         ```sql
         --Add Column SalesChannel
         alter table factinternetsales
@@ -205,11 +195,11 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             SalesTerritoryKey, ShipDate, ShipDateKey, TaxAmt, TotalProductCost, UnitPrice, UnitPriceDiscountPct
         FROM FactResellersales;
         ```
-        
-    - Then set the relationship between Summary_table and other tables.
-- **Exploratory Data Analysis - EDA and Descriptive Statistics**
-    - **1. Market Analytic**
-        - *Question 1: How many Region, City and State? What are they?*
+- Sau đó, thiết lập mối quan hệ giữa bảng **Summary_table** và các bảng khác.
+          
+## Phân tích dữ liệu khám phá - EDA và Thống kê mô tả 
+**1. Market Analytic**
+        - *Câu hỏi 1: Có bao nhiêu khu vực (Region), thành phố (City) và tiểu bang (State)? Chúng là gì?*
             
             ```sql
             --Region
@@ -222,17 +212,14 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             --City
             select count(distinct(city)) as 'Sum_of_City' from DimGeography
             ```
+   <p align="center">
+   <img src="https://github.com/user-attachments/assets/ae5d2675-7f1f-4a15-a302-6565c86e182d" alt="image" width="450">
+  </p>     
+
             
-            ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/f564f74f-3253-4f96-82f0-974921b5d041/image.png)
+- The AdventureWorks company operates, sells products, and currently has a presence, distributing its products across 6 regions: Australia, Canada, France, Germany, United Kingdom, and the United States. Specifically, across 71 states and 500 countries worldwide. 
             
-            ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/198e6efe-6216-4422-b4d7-435c866a9c99/image.png)
-            
-            ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f1a9e588-67bc-4cd4-915f-90d3008a274a/7d59b487-7e1d-4ee3-ab9c-30b153205bf5/image.png)
-            
-            The AdventureWorks company operates, sells products, and currently has a presence, distributing its products across 6 regions: Australia, Canada, France, Germany, United Kingdom, and the United States. Specifically, across 71 states and 500 countries worldwide. 
-            
-        - *Question 2: Sales and Profit by Region?*
-            
+- *Câu hỏi 2: Doanh thu và Lợi nhuận theo khu vực (Region)?*            
             ```sql
             --Sales Amount and Profit by region, sorted by revenue in descending order.
             select englishcountryregionname as 'Region',
@@ -247,8 +234,8 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             order by Sales_Amount desc
             
             ```
-            
-        - *Question 3: What are the top 3 cities with the highest sales Sales_Amount in each region?*
+
+  - *Câu hỏi 3: Ba thành phố có doanh thu cao nhất (Sales_Amount) trong mỗi khu vực là gì?*
             
             ```sql
             With city_salesamount as
@@ -271,7 +258,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             order by Region, Rank
             ```
             
-        - Question 4: *What are the top 3 Year with the highest sales Sales_Amount in each region?*
+- *Câu hỏi 4: Ba năm có doanh thu cao nhất (Sales_Amount) trong mỗi khu vực là gì?*
             
             ```sql
             With year_salesamount as
@@ -291,8 +278,8 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
             order by Region, Rank
             ```
             
-    - **2.Product Analytic**
-        - *Question 1:How many Category, Subcategory, Product line and Product Type?*
+  **2.Product Analytic**
+        - *Câu hỏi 1: Có bao nhiêu loại (Category), phân loại (Subcategory), dòng sản phẩm (Product line) và loại sản phẩm (Product Type)?*
             
             ```sql
             select count(distinct (ProductCategoryKey)) as 'Sum Of Category'
