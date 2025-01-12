@@ -52,8 +52,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
 - Kiểm tra giá trị thiếu/null
 - Tôi đã kiểm tra trong Excel bằng cách sử dụng bộ lọc và sau đó loại bỏ các giá trị thiếu hoặc null.
 - Loại bỏ một số cột không cần thiết và có giá trị null.
-        
-        ```sql
+          ```sql
         alter table dimcustomer
         drop column suffix
         select * from dimcustomer
@@ -66,7 +65,8 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         alter table dimgeography
         drop column frenchcountryregionname
         # Do the same for the remaining tables.
-        ```
+    ```
+      
         
 - Kiểm tra các dòng trùng lặp trong các cột khóa chính.        
         ```sql
