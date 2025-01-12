@@ -356,7 +356,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         
         ```
         
-**3.Channel Performance Analysis**
+  **3.Channel Performance Analysis**
     - *Question 1: Sum of Sales Amount, Cost and Net Profit ?*
         
         ```sql
@@ -394,7 +394,7 @@ Ngoài ra còn có thêm các bảng được tổng hợp và tính toán thôn
         ```
         
 
-- **Insights and Recommendations**
+  **Insights and Recommendations**
     - **Chi phí**
 
     Đối với một sản phẩm bán ra, chi phí trung bình ở kênh Reseller cao gấp gần ba lần so với kênh Internet (51,04 USD so với 147,48 USD).
